@@ -7,7 +7,17 @@ let city = document.getElementById('city');
 let state = document.getElementById('state');
 let tbody = document.getElementById('View')
 
-let adds = [];
+const getdata = () => {
+    let data=JSON.parse(localStorage.getItem("form"));
+
+    if (data) {
+        return data;
+    } else {
+      return []; 
+    }
+}
+
+let adds = getdata();
 
 let addData = () =>{
     console.log("Add");
@@ -30,11 +40,14 @@ let addData = () =>{
 
 
     dataDisplay();
+
+    localStorage.setItem("form",JSON.stringify(adds));
     fname.value = '';
     lname.value = '';
     email.value = '';
     password.value = '';
     inputAddress2.value = '';
+
     return false;
 
 }
@@ -50,6 +63,12 @@ const dataDisplay = () => {
             <td>${rec.email}</td>
             <td>${rec.password}</td>
             <td>${rec.inputAddress2}</td>
+            <td>
+            <button class="btn btn-primary">edit</button>
+            <button class="btn btn-danger">delete</button>
+            </td>
         </tr>`
     });
 };
+
+dataDisplay();
